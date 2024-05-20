@@ -29,6 +29,7 @@ Clone this repository. You will need the following installed globally on your ma
 - [npm](https://github.com/npm/cli)
 - [.Net 8.0.101 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 - [PostgreSQL 16](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
+
 Then run the following command
 ```
 dotnet tool install --global dotnet-ef --framework net8.0
