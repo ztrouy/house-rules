@@ -1,0 +1,37 @@
+Table UserProfile {
+  Id int pk
+  FirstName varchar [not null]
+  LastName varchar [not null]
+  Address varchar [not null]
+  UserName varchar [not null]
+  IdentityUserId varchar [not null]
+  Email varchar [not null]
+}
+
+Table ChoreAssignment {
+  Id int pk
+  UserProfileId int [not null]
+  ChoreId int [not null]
+}
+
+Table ChoreCompletion {
+  Id int pk
+  UserProfileId int [not null]
+  ChoreId int [not null]
+  CompletedOn datetime [not null]
+}
+
+Table Chore {
+  Id int pk
+  Name varchar [not null]
+  Difficulty int [not null]
+  ChoreFrequencyDays int [not null]
+}
+
+Ref: "UserProfile"."Id" < "ChoreAssignment"."UserProfileId"
+
+Ref: "UserProfile"."Id" < "ChoreCompletion"."UserProfileId"
+
+Ref: "Chore"."Id" < "ChoreAssignment"."ChoreId"
+
+Ref: "Chore"."Id" < "ChoreCompletion"."ChoreId"
