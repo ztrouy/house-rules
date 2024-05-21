@@ -51,7 +51,7 @@ public class ChoreController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public IActionResult Create(ChoreCreateDTO chore, IMapper mapper)
+    public IActionResult Create(ChoreCreateDTO chore)
     {
         Chore newChore = new Chore()
         {
@@ -72,6 +72,30 @@ public class ChoreController : ControllerBase
         };
 
         return Created($"api/Chore/{choreDTO.Id}", choreDTO);
+    }
+
+    [HttpPut("id")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult Update(int id, ChoreUpdateDTO update)
+    {
+        if (update.Id != id)
+        {
+            return BadRequest("Submitted chore has incorrect Id");
+        }
+        
+        Chore foundChore = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
+        if (foundChore == null)
+        {
+            return NotFound();
+        }
+
+        foundChore.Name = update.Name;
+        foundChore.Difficulty = update.Difficulty;
+        foundChore.ChoreFrequencyDays = update.ChoreFrequencyDays;
+
+        _dbContext.SaveChanges();
+
+        return NoContent();
     }
 
     [HttpPost("{id}/complete")]
