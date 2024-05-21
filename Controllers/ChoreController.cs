@@ -49,6 +49,31 @@ public class ChoreController : ControllerBase
         return Ok(choreDTO);
     }
 
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public IActionResult Create(ChoreCreateDTO chore, IMapper mapper)
+    {
+        Chore newChore = new Chore()
+        {
+            Name = chore.Name,
+            Difficulty = chore.Difficulty,
+            ChoreFrequencyDays = chore.ChoreFrequencyDays
+        };
+
+        _dbContext.Chores.Add(newChore);
+        _dbContext.SaveChanges();
+
+        ChoreNoNavDTO choreDTO = new ChoreNoNavDTO()
+        {
+            Id = newChore.Id,
+            Name = newChore.Name,
+            Difficulty = newChore.Difficulty,
+            ChoreFrequencyDays = newChore.ChoreFrequencyDays
+        };
+
+        return Created($"api/Chore/{choreDTO.Id}", choreDTO);
+    }
+
     [HttpPost("{id}/complete")]
     [Authorize]
     public IActionResult Complete(int id, int? userId, IMapper mapper)
