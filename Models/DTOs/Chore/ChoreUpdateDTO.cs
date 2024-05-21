@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HouseRules.Models.DTOs;
 
-public class ChoreDTO
+public class ChoreUpdateDTO
 {
     public int Id { get; set; }
     [Required]
@@ -11,6 +11,4 @@ public class ChoreDTO
     public int Difficulty { get; set; }
     [Required]
     public int ChoreFrequencyDays { get; set; }
-    public List<ChoreAssignmentDTO> ChoreAssignments { get; set; }
-    public List<ChoreCompletionDTO> ChoreCompletions { get; set; }
 }

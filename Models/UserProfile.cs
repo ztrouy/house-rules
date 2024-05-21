@@ -10,4 +10,6 @@ public class UserProfile
     public string Address { get; set; }
     public string IdentityUserId { get; set; }
     public IdentityUser IdentityUser { get; set; }
+    public List<ChoreAssignment> ChoreAssignments { get; set; }
+    public List<ChoreCompletion> ChoreCompletions { get; set; }
 }

@@ -256,7 +256,7 @@ namespace HouseRules.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "1f284388-ef23-4ec5-ad98-229b8c1ec751", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEL49vTF/tLiHLa1TVh9C+Ent6a9XHf60ztDO2Q7yG4QVIP/08StIZoKhqzCtA0yc8g==", null, false, "aa6015a8-84d2-4a6d-9073-85b9ab723299", false, "Administrator" });
+                values: new object[] { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "0c5921ef-e68d-4395-894c-dfa51ea4e2af", "admina@strator.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEAp5ANNa6vzUnzI1cjZWNRzanV33VcasONu5TbdK2VCkceDvoRUnS5raHAcQwt15xA==", null, false, "f27a8b95-b6cb-4963-83f3-5a60e700f842", false, "Administrator" });
 
             migrationBuilder.InsertData(
                 table: "Chores",
@@ -300,9 +300,9 @@ namespace HouseRules.Migrations
                 columns: new[] { "Id", "ChoreId", "CompletedOn", "UserProfileId" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2024, 5, 18, 16, 54, 30, 748, DateTimeKind.Local).AddTicks(8596), 1 },
-                    { 2, 2, new DateTime(2024, 5, 19, 16, 54, 30, 748, DateTimeKind.Local).AddTicks(8645), 1 },
-                    { 3, 3, new DateTime(2024, 5, 17, 16, 54, 30, 748, DateTimeKind.Local).AddTicks(8647), 1 }
+                    { 1, 1, new DateTime(2024, 5, 19, 10, 20, 7, 734, DateTimeKind.Local).AddTicks(6187), 1 },
+                    { 2, 2, new DateTime(2024, 5, 20, 10, 20, 7, 734, DateTimeKind.Local).AddTicks(6267), 1 },
+                    { 3, 3, new DateTime(2024, 5, 18, 10, 20, 7, 734, DateTimeKind.Local).AddTicks(6272), 1 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HouseRules.Migrations
 {
     [DbContext(typeof(HouseRulesDbContext))]
-    [Migration("20240520215431_InitialCreate")]
+    [Migration("20240521152008_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -191,21 +191,21 @@ namespace HouseRules.Migrations
                         {
                             Id = 1,
                             ChoreId = 1,
-                            CompletedOn = new DateTime(2024, 5, 18, 16, 54, 30, 748, DateTimeKind.Local).AddTicks(8596),
+                            CompletedOn = new DateTime(2024, 5, 19, 10, 20, 7, 734, DateTimeKind.Local).AddTicks(6187),
                             UserProfileId = 1
                         },
                         new
                         {
                             Id = 2,
                             ChoreId = 2,
-                            CompletedOn = new DateTime(2024, 5, 19, 16, 54, 30, 748, DateTimeKind.Local).AddTicks(8645),
+                            CompletedOn = new DateTime(2024, 5, 20, 10, 20, 7, 734, DateTimeKind.Local).AddTicks(6267),
                             UserProfileId = 1
                         },
                         new
                         {
                             Id = 3,
                             ChoreId = 3,
-                            CompletedOn = new DateTime(2024, 5, 17, 16, 54, 30, 748, DateTimeKind.Local).AddTicks(8647),
+                            CompletedOn = new DateTime(2024, 5, 18, 10, 20, 7, 734, DateTimeKind.Local).AddTicks(6272),
                             UserProfileId = 1
                         });
                 });
@@ -374,13 +374,13 @@ namespace HouseRules.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1f284388-ef23-4ec5-ad98-229b8c1ec751",
+                            ConcurrencyStamp = "0c5921ef-e68d-4395-894c-dfa51ea4e2af",
                             Email = "admina@strator.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEL49vTF/tLiHLa1TVh9C+Ent6a9XHf60ztDO2Q7yG4QVIP/08StIZoKhqzCtA0yc8g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAp5ANNa6vzUnzI1cjZWNRzanV33VcasONu5TbdK2VCkceDvoRUnS5raHAcQwt15xA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aa6015a8-84d2-4a6d-9073-85b9ab723299",
+                            SecurityStamp = "f27a8b95-b6cb-4963-83f3-5a60e700f842",
                             TwoFactorEnabled = false,
                             UserName = "Administrator"
                         });
@@ -483,7 +483,7 @@ namespace HouseRules.Migrations
                         .IsRequired();
 
                     b.HasOne("HouseRules.Models.UserProfile", "UserProfile")
-                        .WithMany()
+                        .WithMany("ChoreAssignments")
                         .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -502,7 +502,7 @@ namespace HouseRules.Migrations
                         .IsRequired();
 
                     b.HasOne("HouseRules.Models.UserProfile", "UserProfile")
-                        .WithMany()
+                        .WithMany("ChoreCompletions")
                         .HasForeignKey("UserProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -573,6 +573,13 @@ namespace HouseRules.Migrations
                 });
 
             modelBuilder.Entity("HouseRules.Models.Chore", b =>
+                {
+                    b.Navigation("ChoreAssignments");
+
+                    b.Navigation("ChoreCompletions");
+                });
+
+            modelBuilder.Entity("HouseRules.Models.UserProfile", b =>
                 {
                     b.Navigation("ChoreAssignments");
 
