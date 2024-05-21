@@ -9,6 +9,7 @@ public class AutoMapperProfiles : Profile
         CreateMap<UserProfile, UserProfileDTO>();
         CreateMap<UserProfile, UserProfileNoRolesDTO>();
         CreateMap<UserProfile, UserProfileNoIdentityUserOrRolesDTO>();
+        CreateMap<UserProfile, UserProfileNoNavDTO>();
         CreateMap<Chore, ChoreDTO>();
         CreateMap<Chore, ChoreNoNavDTO>();
         CreateMap<Chore, ChoreNoUserProfileDTO>();
