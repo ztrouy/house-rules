@@ -98,6 +98,22 @@ public class ChoreController : ControllerBase
         return NoContent();
     }
 
+    [HttpDelete("id")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult Delete(int id)
+    {
+        Chore choreToDelete = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
+        if (choreToDelete == null)
+        {
+            return NotFound();
+        }
+
+        _dbContext.Chores.Remove(choreToDelete);
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
+
     [HttpPost("{id}/complete")]
     [Authorize]
     public IActionResult Complete(int id, int? userId, IMapper mapper)
