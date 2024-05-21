@@ -11,11 +11,14 @@ public class AutoMapperProfiles : Profile
         CreateMap<UserProfile, UserProfileNoIdentityUserOrRolesDTO>();
         CreateMap<Chore, ChoreDTO>();
         CreateMap<Chore, ChoreNoNavDTO>();
+        CreateMap<Chore, ChoreNoUserProfileDTO>();
         CreateMap<ChoreAssignment, ChoreAssignmentDTO>();
         CreateMap<ChoreAssignment, ChoreAssignmentEmbedChoreDTO>();
         CreateMap<ChoreAssignment, ChoreAssignmentEmbedUserProfileDTO>();
+        CreateMap<ChoreAssignment, ChoreAssignmentNoNavDTO>();
         CreateMap<ChoreCompletion, ChoreCompletionDTO>();
         CreateMap<ChoreCompletion, ChoreCompletionEmbedChoreDTO>();
         CreateMap<ChoreCompletion, ChoreCompletionEmbedUserProfileDTO>();
+        CreateMap<ChoreCompletion, ChoreCompletionNoNavDTO>();
     }
 }
