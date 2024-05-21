@@ -152,6 +152,38 @@ public class ChoreController : ControllerBase
         return NoContent();
     }
 
+    [HttpPost("{id}/unassign")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult Unassign(int id, int? userId)
+    {
+        if (userId == null)
+        {
+            return BadRequest("You didn't provide a user!");
+        }
+
+        Chore choreToUnassign = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
+        if (choreToUnassign == null)
+        {
+            return NotFound("No chore with that Id was found");
+        }
+        UserProfile userProfileToUnassign = _dbContext.UserProfiles.SingleOrDefault(up => up.Id == userId);
+        if (userProfileToUnassign == null)
+        {
+            return NotFound("No user with that Id was found!");
+        }
+
+        ChoreAssignment choreAssignmentToRemove = _dbContext.ChoreAssignments.SingleOrDefault(ca => ca.ChoreId == choreToUnassign.Id && ca.UserProfileId == userProfileToUnassign.Id);
+        if (choreAssignmentToRemove == null)
+        {
+            return NotFound("That user has not been assigned this chore!");
+        }
+
+        _dbContext.ChoreAssignments.Remove(choreAssignmentToRemove);
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
+
     [HttpPost("{id}/complete")]
     [Authorize]
     public IActionResult Complete(int id, int? userId, IMapper mapper)
