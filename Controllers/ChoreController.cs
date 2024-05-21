@@ -32,4 +32,20 @@ public class ChoreController : ControllerBase
         
         return Ok(choreDTOs);
     }
+
+    [HttpGet("id")]
+    [Authorize]
+    public IActionResult GetSingle(int id, IMapper mapper)
+    {
+        ChoreNoUserProfileDTO choreDTO = _dbContext.Chores
+            .ProjectTo<ChoreNoUserProfileDTO>(mapper.ConfigurationProvider)
+            .SingleOrDefault(c => c.Id == id);
+        
+        if (choreDTO == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(choreDTO);
+    }
 }
