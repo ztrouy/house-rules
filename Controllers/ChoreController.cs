@@ -48,4 +48,31 @@ public class ChoreController : ControllerBase
 
         return Ok(choreDTO);
     }
+
+    [HttpPost("{id}/complete")]
+    [Authorize]
+    public IActionResult Complete(int id, int? userId, IMapper mapper)
+    {
+        Chore foundChore = _dbContext.Chores.SingleOrDefault(c => c.Id == id);
+        if (foundChore == null)
+        {
+            return BadRequest("Chore not found");
+        }
+        UserProfile foundUserProfile = _dbContext.UserProfiles.SingleOrDefault(up => up.Id == userId);
+        if (foundUserProfile == null)
+        {
+            return BadRequest("User not found");
+        }
+        
+        ChoreCompletion choreCompletion = new ChoreCompletion()
+        {
+            ChoreId = foundChore.Id,
+            UserProfileId = foundUserProfile.Id,
+            CompletedOn = DateTime.Now
+        };
+        _dbContext.ChoreCompletions.Add(choreCompletion);
+        _dbContext.SaveChanges();
+
+        return NoContent();
+    }
 }
