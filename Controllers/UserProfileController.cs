@@ -42,7 +42,7 @@ public class UserProfileController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    // [Authorize]
+    [Authorize]
     public IActionResult GetSingle(int id, IMapper mapper)
     {
         UserProfileNoIdentityUserOrRolesDTO userProfileDTO = _dbContext.UserProfiles
