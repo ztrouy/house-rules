@@ -5,6 +5,8 @@ using HouseRules.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 using HouseRules.Models;
 using Microsoft.AspNetCore.Identity;
+using AutoMapper.QueryableExtensions;
+using AutoMapper;
 
 namespace HouseRules.Controllers;
 
@@ -26,7 +28,7 @@ public class UserProfileController : ControllerBase
         return Ok(_dbContext
             .UserProfiles
             .Include(up => up.IdentityUser)
-            .Select(up => new UserProfileDTO
+            .Select(up => new UserProfileNoRolesDTO
             {
                 Id = up.Id,
                 FirstName = up.FirstName,
@@ -37,6 +39,17 @@ public class UserProfileController : ControllerBase
                 UserName = up.IdentityUser.UserName
             })
             .ToList());
+    }
+
+    [HttpGet("{id}")]
+    // [Authorize]
+    public IActionResult GetSingle(int id, IMapper mapper)
+    {
+        UserProfileNoIdentityUserOrRolesDTO userProfileDTO = _dbContext.UserProfiles
+            .ProjectTo<UserProfileNoIdentityUserOrRolesDTO>(mapper.ConfigurationProvider)
+            .SingleOrDefault(up => up.Id == id);
+
+        return Ok(userProfileDTO);
     }
 
     [HttpGet("withroles")]
