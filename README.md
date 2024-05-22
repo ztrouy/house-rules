@@ -10,13 +10,14 @@ This website aims to make it easy for families or roommates to:
 - Complete a Chore
 
 ## Technologies Used
-- ReactJs
+- ReactJS
 - JavaScript
 - C#
 - ASP.NET
 - ADO.NET
 - PostgreSQL 16
 - Entity Framework Core
+- AutoMapper
 - Bootstrap
 - Reactstrap
 - CSS3

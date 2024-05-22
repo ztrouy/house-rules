@@ -7,7 +7,7 @@ return {
     open: true,
     proxy: {
         "/api": {
-        target: "https://localhost:5001",
+        target: "https://localhost:7260",
         changeOrigin: true,
         secure: false,
         },
