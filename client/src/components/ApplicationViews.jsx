@@ -4,6 +4,7 @@ import Login from "./auth/Login";
 import Register from "./auth/Register";
 import Home from "./Home.jsx";
 import UserProfilesList from "./userprofiles/UserProfilesList.jsx";
+import { UserProfileDetails } from "./userprofiles/UserProfileDetails.jsx";
 
 export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
   return (
@@ -26,6 +27,16 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
               </AuthorizedRoute>
             } 
           />
+          <Route path=":id">
+            <Route 
+              index 
+              element={
+                <AuthorizedRoute roles={["Admin"]} loggedInUser={loggedInUser}>
+                  <UserProfileDetails loggedInUser={loggedInUser} />
+                </AuthorizedRoute>
+              }
+            />
+          </Route>
         </Route>
         <Route
           path="login"

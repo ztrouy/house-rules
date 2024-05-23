@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { getUserProfiles } from "../../managers/userProfileManager.js"
-import { Card, CardBody, CardHeader, CardText, CardTitle } from "reactstrap"
+import { Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle } from "reactstrap"
+import { useNavigate } from "react-router-dom"
 
 export const UserProfilesList = ({ loggedInUser }) => {
     const [userProfiles, setUserProfiles] = useState([])
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         getUserProfiles().then(setUserProfiles)
@@ -33,6 +36,9 @@ export const UserProfilesList = ({ loggedInUser }) => {
                                 {`Email: ${up.email}`}
                             </CardText>
                         </CardBody>
+                        <CardFooter className="d-flex flex-row-reverse">
+                            <Button onClick={() => navigate(`${up.id}`)}>Details</Button>
+                        </CardFooter>
                     </Card>
                 )
             })}
