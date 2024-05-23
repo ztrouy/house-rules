@@ -33,7 +33,7 @@ public class ChoreController : ControllerBase
         return Ok(choreDTOs);
     }
 
-    [HttpGet("id")]
+    [HttpGet("{id}")]
     [Authorize]
     public IActionResult GetSingle(int id, IMapper mapper)
     {
@@ -74,7 +74,7 @@ public class ChoreController : ControllerBase
         return Created($"api/Chore/{choreDTO.Id}", choreDTO);
     }
 
-    [HttpPut("id")]
+    [HttpPut("{id}")]
     [Authorize(Roles = "Admin")]
     public IActionResult Update(int id, ChoreUpdateDTO update)
     {
@@ -98,7 +98,7 @@ public class ChoreController : ControllerBase
         return NoContent();
     }
 
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
     public IActionResult Delete(int id)
     {
