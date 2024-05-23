@@ -37,14 +37,16 @@ public class ChoreController : ControllerBase
     [Authorize]
     public IActionResult GetSingle(int id, IMapper mapper)
     {
-        ChoreNoUserProfileDTO choreDTO = _dbContext.Chores
-            .ProjectTo<ChoreNoUserProfileDTO>(mapper.ConfigurationProvider)
+        ChoreDTO choreDTO = _dbContext.Chores
+            .ProjectTo<ChoreDTO>(mapper.ConfigurationProvider)
             .SingleOrDefault(c => c.Id == id);
         
         if (choreDTO == null)
         {
             return NotFound();
         }
+
+        choreDTO.ChoreCompletions = choreDTO.ChoreCompletions.OrderByDescending(cc => cc.CompletedOn).ToList();
 
         return Ok(choreDTO);
     }
