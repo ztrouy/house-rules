@@ -33,6 +33,9 @@ return (
                             <NavLink tag={RRNavLink} to={"/userprofiles"}>User Profiles</NavLink>
                         </NavItem>
                     )}
+                    <NavItem>
+                        <NavLink tag={RRNavLink} to={"/chores"}>Chores</NavLink>
+                    </NavItem>
                 </Nav>
                 </Collapse>
                 <Button
