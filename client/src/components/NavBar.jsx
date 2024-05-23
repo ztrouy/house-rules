@@ -19,40 +19,46 @@ const toggleNavbar = () => setOpen(!open);
 
 return (
     <div>
-    <Navbar color="light" light fixed="true" expand="lg">
-        <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
-        🧹🧼House Rules
-        </NavbarBrand>
-        {loggedInUser ? (
-        <>
-            <NavbarToggler onClick={toggleNavbar} />
-            <Collapse isOpen={open} navbar>
-            <Nav navbar></Nav>
-            </Collapse>
-            <Button
-            color="primary"
-            onClick={(e) => {
-                e.preventDefault();
-                setOpen(false);
-                logout().then(() => {
-                setLoggedInUser(null);
-                setOpen(false);
-                });
-            }}
-            >
-            Logout
-            </Button>
-        </>
-        ) : (
-        <Nav navbar>
-            <NavItem>
-            <NavLink tag={RRNavLink} to="/login">
-                <Button color="primary">Login</Button>
-            </NavLink>
-            </NavItem>
-        </Nav>
-        )}
-    </Navbar>
+        <Navbar color="light" light fixed="true" expand="lg">
+            <NavbarBrand className="mr-auto" tag={RRNavLink} to="/">
+            🧹🧼House Rules
+            </NavbarBrand>
+            {loggedInUser ? (
+            <>
+                <NavbarToggler onClick={toggleNavbar} />
+                <Collapse isOpen={open} navbar>
+                <Nav navbar>
+                    {loggedInUser.roles.includes("Admin") && (
+                        <NavItem>
+                            <NavLink tag={RRNavLink} to={"/userprofiles"}>User Profiles</NavLink>
+                        </NavItem>
+                    )}
+                </Nav>
+                </Collapse>
+                <Button
+                color="primary"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setOpen(false);
+                    logout().then(() => {
+                    setLoggedInUser(null);
+                    setOpen(false);
+                    });
+                }}
+                >
+                Logout
+                </Button>
+            </>
+            ) : (
+            <Nav navbar>
+                <NavItem>
+                <NavLink tag={RRNavLink} to="/login">
+                    <Button color="primary">Login</Button>
+                </NavLink>
+                </NavItem>
+            </Nav>
+            )}
+        </Navbar>
     </div>
 );
 }
