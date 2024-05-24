@@ -13,3 +13,15 @@ export const deleteChore = (id) => {
 
     return fetch(`${_apiUrl}/${id}`, deleteOptions)
 }
+
+export const createChore = (chore) => {
+    const postOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(chore)
+    }
+
+    return fetch(_apiUrl, postOptions).then(res => res.json())
+}
