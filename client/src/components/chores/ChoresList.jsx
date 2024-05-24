@@ -24,8 +24,13 @@ export const ChoresList = ({ loggedInUser }) => {
     
     return (
         <div className="d-flex flex-column align-items-center gap-3 pt-3 mb-5">
-            <div className="w-75">
+            <div className="w-75 d-flex gap-3">
                 <h1>Chores</h1>
+                {loggedInUser.roles.includes("Admin") && (
+                    <div className="d-flex align-items-center">
+                        <Button onClick={() => navigate("new")}>New Chore</Button>
+                    </div>
+                )}
             </div>
             {chores.map(c => {
                 return (
