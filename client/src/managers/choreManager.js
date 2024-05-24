@@ -25,3 +25,9 @@ export const createChore = (chore) => {
 
     return fetch(_apiUrl, postOptions).then(res => res.json())
 }
+
+export const completeChore = (id, userId) => {
+    const postOptions = {method: "POST"}
+
+    return fetch(`${_apiUrl}/${id}/complete?userId=${userId}`, postOptions)
+}

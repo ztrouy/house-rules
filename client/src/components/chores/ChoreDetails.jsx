@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { getChore } from "../../managers/choreManager.js"
 import { getUserProfiles } from "../../managers/userProfileManager.js"
 import { Card, CardBody, CardText, CardTitle } from "reactstrap"
+import PageContainer from "../PageContainer.jsx"
 
 export const ChoreDetails = ({ loggedInUser }) => {
     const [chore, setChore] = useState(null)
@@ -20,7 +21,7 @@ export const ChoreDetails = ({ loggedInUser }) => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center gap-3 pt-3 mb-5">
+        <PageContainer>
             <div className="w-75">
                 <h1>{chore.name}</h1>
                 <div className="d-flex gap-5">
@@ -59,7 +60,7 @@ export const ChoreDetails = ({ loggedInUser }) => {
             ) : (
                 <p><i><b>This Chore has never been completed!</b></i></p>
             )}
-        </div>
+        </PageContainer>
     )
 }
 

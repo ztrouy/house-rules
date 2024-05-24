@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { deleteChore, getChores } from "../../managers/choreManager.js"
+import { completeChore, deleteChore, getChores } from "../../managers/choreManager.js"
 import { Button, Card, CardBody, CardFooter, CardText, CardTitle } from "reactstrap"
 import { useNavigate } from "react-router-dom"
+import PageContainer from "../PageContainer.jsx"
 
 export const ChoresList = ({ loggedInUser }) => {
     const [chores, setChores] = useState(null)
@@ -17,13 +18,19 @@ export const ChoresList = ({ loggedInUser }) => {
             getChores().then(setChores)
         })
     }
+
+    const handleCompleteBtn = (id, userId) => {
+        completeChore(id, userId).then(() => {
+            window.alert("Chore Completed!")
+        })
+    }
     
     if (!chores) {
         return (<>Loading...</>)
     }
     
     return (
-        <div className="d-flex flex-column align-items-center gap-3 pt-3 mb-5">
+        <PageContainer>
             <div className="w-75 d-flex gap-3">
                 <h1>Chores</h1>
                 {loggedInUser.roles.includes("Admin") && (
@@ -40,16 +47,19 @@ export const ChoresList = ({ loggedInUser }) => {
                             <CardText>Difficulty: {c.difficulty}</CardText>
                             <CardText>Repeat Every {c.choreFrequencyDays} Days</CardText>
                         </CardBody>
-                        {loggedInUser.roles.includes("Admin") && (
                             <CardFooter className="d-flex flex-row-reverse gap-2">
-                                <Button onClick={() => handleDeleteBtn(parseInt(c.id))}>Delete</Button>
-                                <Button onClick={() => navigate(`${c.id}`)}>Details</Button>
+                                <Button onClick={() => handleCompleteBtn(c.id, loggedInUser.id)}>Complete</Button>
+                                {loggedInUser.roles.includes("Admin") && (
+                                    <>
+                                        <Button onClick={() => navigate(`${c.id}`)}>Details</Button>
+                                        <Button onClick={() => handleDeleteBtn(parseInt(c.id))}>Delete</Button>
+                                    </>
+                                )}
                             </CardFooter>
-                        )}
                     </Card>
                 )
             })}
-        </div>
+        </PageContainer>
     )
 }
 
