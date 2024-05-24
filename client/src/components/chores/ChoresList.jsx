@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { deleteChore, getChores } from "../../managers/choreManager.js"
 import { Button, Card, CardBody, CardFooter, CardText, CardTitle } from "reactstrap"
 import { useNavigate } from "react-router-dom"
+import PageContainer from "../PageContainer.jsx"
 
 export const ChoresList = ({ loggedInUser }) => {
     const [chores, setChores] = useState(null)
@@ -23,7 +24,7 @@ export const ChoresList = ({ loggedInUser }) => {
     }
     
     return (
-        <div className="d-flex flex-column align-items-center gap-3 pt-3 mb-5">
+        <PageContainer>
             <div className="w-75 d-flex gap-3">
                 <h1>Chores</h1>
                 {loggedInUser.roles.includes("Admin") && (
@@ -49,7 +50,7 @@ export const ChoresList = ({ loggedInUser }) => {
                     </Card>
                 )
             })}
-        </div>
+        </PageContainer>
     )
 }
 

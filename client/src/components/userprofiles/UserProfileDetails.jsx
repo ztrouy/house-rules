@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { getUserProfile } from "../../managers/userProfileManager.js"
 import { Card, CardBody, CardHeader, CardText, CardTitle } from "reactstrap"
+import PageContainer from "../PageContainer.jsx"
 
 export const UserProfileDetails = ({ loggedInUser }) => {
     const [user, setUser] = useState(null)
@@ -17,7 +18,7 @@ export const UserProfileDetails = ({ loggedInUser }) => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center gap-3 pt-3 mb-5">
+        <PageContainer>
             <div className="w-75">
                 <h1>{`${user.firstName} ${user.lastName}`}</h1>
                 <p><b>Address:</b> {user.address}</p>
@@ -55,6 +56,6 @@ export const UserProfileDetails = ({ loggedInUser }) => {
                     </Card>
                 )
             })}
-        </div>
+        </PageContainer>
     )
 }

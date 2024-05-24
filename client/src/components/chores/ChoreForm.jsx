@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Button, Form, FormGroup, Input, Label } from "reactstrap"
 import { createChore } from "../../managers/choreManager.js"
 import { useNavigate } from "react-router-dom"
+import PageContainer from "../PageContainer.jsx"
 
 export const ChoreForm = ({ loggedInUsers }) => {
     const [name, setName] = useState("")
@@ -23,7 +24,7 @@ export const ChoreForm = ({ loggedInUsers }) => {
     }
 
     return (
-        <div className="d-flex flex-column align-items-center gap-3 pt-3 mb-5">
+        <PageContainer>
             <div className="w-75">
                 <h1>New Chore</h1>
             </div>
@@ -54,7 +55,7 @@ export const ChoreForm = ({ loggedInUsers }) => {
                 </FormGroup>
                 <Button onClick={handleSubmit}>Submit</Button>
             </Form>
-        </div>
+        </PageContainer>
     )
 }
 

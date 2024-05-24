@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getUserProfiles } from "../../managers/userProfileManager.js"
 import { Button, Card, CardBody, CardFooter, CardHeader, CardText, CardTitle } from "reactstrap"
 import { useNavigate } from "react-router-dom"
+import PageContainer from "../PageContainer.jsx"
 
 export const UserProfilesList = ({ loggedInUser }) => {
     const [userProfiles, setUserProfiles] = useState([])
@@ -13,7 +14,7 @@ export const UserProfilesList = ({ loggedInUser }) => {
     }, [])
     
     return (
-        <div className="d-flex flex-column align-items-center gap-3 pt-3">
+        <PageContainer>
             <div className="w-75">
                 <h1>User Profiles</h1>
             </div>
@@ -42,7 +43,7 @@ export const UserProfilesList = ({ loggedInUser }) => {
                     </Card>
                 )
             })}
-        </div>
+        </PageContainer>
     )
 }
 
