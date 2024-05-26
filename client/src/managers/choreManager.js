@@ -31,3 +31,15 @@ export const completeChore = (id, userId) => {
 
     return fetch(`${_apiUrl}/${id}/complete?userId=${userId}`, postOptions)
 }
+
+export const assignChore = (id, userId) => {
+    const postOptions = {method: "POST"}
+
+    return fetch(`${_apiUrl}/${id}/assign?userId=${userId}`, postOptions)
+}
+
+export const unassignChore = (id, userId) => {
+    const postOptions = {method: "POST"}
+
+    return fetch(`${_apiUrl}/${id}/unassign?userId=${userId}`, postOptions)
+}

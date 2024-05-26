@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { getChore } from "../../managers/choreManager.js"
+import { assignChore, getChore, unassignChore } from "../../managers/choreManager.js"
 import { getUserProfiles } from "../../managers/userProfileManager.js"
-import { Card, CardBody, CardText, CardTitle } from "reactstrap"
+import { Card, CardBody, CardText, CardTitle, Input, Label } from "reactstrap"
 import PageContainer from "../PageContainer.jsx"
 
 export const ChoreDetails = ({ loggedInUser }) => {
@@ -15,6 +15,21 @@ export const ChoreDetails = ({ loggedInUser }) => {
         getChore(id).then(setChore)
         getUserProfiles().then(setUsers)
     }, [])
+
+    const handleCheck = (event) => {
+        const userId = event.target.value
+        const isAssigned = chore.choreAssignments.some(ca => ca.userProfileId == userId)
+        
+        if (isAssigned) {
+            unassignChore(chore.id, userId).then(() => {
+                getChore(id).then(setChore)
+            })
+        } else {
+            assignChore(chore.id, userId).then(() => {
+                getChore(id).then(setChore)
+            })
+        }
+    }
     
     if (!chore || !users) {
         return (<>Loading...</>)
@@ -32,29 +47,36 @@ export const ChoreDetails = ({ loggedInUser }) => {
             <div className="w-75">
                 <h3>Assigned Users</h3>
             </div>
-            {chore.choreAssignments.length > 0 ? (users.map(u => {
-                if (chore.choreAssignments.find(ca => ca.userProfileId == u.id)) {
+            <div className="w-75 d-flex gap-3">
+                {users.map(u => {
+                    let isChecked = false
+                    if (chore.choreAssignments.some(ca => ca.userProfileId == u.id)) {
+                        isChecked = true
+                    }
+                    
                     return (
-                        <Card className="w-75" key={`u-${u.id}`}>
-                            <CardBody>
-                                <CardTitle className="fs-2 fw-bold">{`${u.firstName} ${u.lastName}`}</CardTitle>
-                            </CardBody>
-                        </Card>
+                        <div key={`up-${u.id}`}>
+                            <Label>{`${u.firstName} ${u.lastName}`}</Label>
+                            <Input 
+                                type="checkbox"
+                                checked={isChecked}
+                                value={u.id}
+                                onChange={handleCheck}
+                            />
+                        </div>
                     )
-                }
-            })) : (
-                <p><i><b>No one is assigned this Chore!</b></i></p>
-            )}
+                })}
+            </div>
             <div className="w-75">
                 <h3>Recent Completion</h3>
             </div>
-            {chore.choreCompletions.length > 0 ? (
-                <Card className="w-75" key={`cc-${chore.choreCompletions[0].id}`}>
+            {chore.mostRecentCompletion ? (
+                <Card className="w-75" key={`cc-${chore.mostRecentCompletion.id}`}>
                     <CardBody>
                         <CardTitle className="fs-2 fw-bold">
-                            {`${chore.choreCompletions[0].userProfile.firstName} ${chore.choreCompletions[0].userProfile.lastName}`}
+                            {`${chore.mostRecentCompletion.userProfile.firstName} ${chore.mostRecentCompletion.userProfile.lastName}`}
                         </CardTitle>
-                        <CardText>{chore.choreCompletions[0].completedOn}</CardText>
+                        <CardText>{chore.mostRecentCompletion.completedOn}</CardText>
                     </CardBody>
                 </Card>
             ) : (
